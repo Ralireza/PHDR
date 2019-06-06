@@ -5,10 +5,7 @@ from sklearn.decomposition import PCA
 
 import numpy as np
 from sklearn.model_selection import train_test_split
-from knn import knn
-from bayes import bayes
-from rbf import rbf
-from mlp import mlp
+
 
 
 def fe_resize_normalization(image_path, label, size):
