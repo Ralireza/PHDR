@@ -9,6 +9,7 @@ from knn import knn
 from bayes import bayes
 from rbf import rbf
 
+
 def fe_resize_normalization(image_path, label, size):
     img = cv2.imread(image_path)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -57,7 +58,7 @@ def build_data(images_path='persian_digit/'):
         for key, value in final_path.items():
             # print((key))
             for path in value:
-                X.append(fe_hog(path, key, 10))
+                X.append(fe_hog(path, key, 50))
                 Y.append(key)
     return X, Y
 
