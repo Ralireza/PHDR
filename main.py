@@ -6,6 +6,7 @@ from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.model_selection import train_test_split
 from knn import knn
+from bayes import bayes
 
 
 def fe_resize_normalization(image_path, label, size):
@@ -56,7 +57,7 @@ def build_data(images_path='persian_digit/'):
         for key, value in final_path.items():
             # print((key))
             for path in value:
-                X.append(fe_pca(path, key, 50, 1))
+                X.append(fe_hog(path, key, 80))
                 Y.append(key)
     return X, Y
 
@@ -68,5 +69,5 @@ def draw_image(filename):
 
 X, Y = build_data()
 
-X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.20)
-# knn(X_train, X_test, y_train, y_test, True)
+X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.10)
+bayes(X_train, X_test, y_train, y_test)
