@@ -3,9 +3,8 @@ import os
 from skimage.feature import hog
 from sklearn.decomposition import PCA
 
-import numpy as np
 from sklearn.model_selection import train_test_split
-
+import Classifier
 
 
 def fe_resize_normalization(image_path, label, size):
@@ -69,4 +68,4 @@ def draw_image(filename):
 X, Y = build_data()
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.10)
-mlp(X_train, X_test, y_train, y_test)
+cls = Classifier.Classifier().svm(X_train, X_test, y_train, y_test)
