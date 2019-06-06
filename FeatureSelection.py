@@ -1,16 +1,22 @@
 import cv2
-import os
 from skimage.feature import hog
 from sklearn.decomposition import PCA
 
 
 class FeatureSelection:
-    def __init__(self):
+    def __init__(self, function, image_path, size, n_feature):
+        if function == "resize":
+            self.resize_normalization(image_path, size)
+        if function == "pca":
+            self.pca(image_path, size, n_feature)
+        if function == "hog":
+            self.hog(image_path, size)
+
         print("\n----------------------------------------------------------")
-        print("--------------P-R-O-C-E-S-S-I-N-G--D-A-T-A----------------")
+        print("--------------P-R-O-C-E-S-S-I-N-G---D-A-T-A---------------")
         print("----------------------------------------------------------\n")
 
-    def fe_resize_normalization(image_path, label, size):
+    def resize_normalization(self, image_path, size):
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         resized = cv2.resize(gray, (size, size), interpolation=cv2.INTER_AREA)
@@ -18,7 +24,7 @@ class FeatureSelection:
         flatten_feature = list(im_bw.flatten())
         return flatten_feature
 
-    def fe_hog(image_path, label, size):
+    def hog(self, image_path, size):
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         resized = cv2.resize(gray, (size, size), interpolation=cv2.INTER_AREA)
@@ -30,7 +36,7 @@ class FeatureSelection:
         im_bw = list(hog_image.flatten())
         return im_bw
 
-    def fe_pca(image_path, label, size, n_feature):
+    def pca(self, image_path, size, n_feature):
         img = cv2.imread(image_path)
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         resized = cv2.resize(gray, (size, size), interpolation=cv2.INTER_AREA)

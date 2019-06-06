@@ -7,10 +7,30 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.gaussian_process import GaussianProcessClassifier
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier
 
 
 class Classifier:
-    def __init__(self):
+    def __init__(self, algorithm, x_train, x_test, y_train, y_test):
+
+        if algorithm == "knn":
+            self.knn(x_train, x_test, y_train, y_test)
+        if algorithm == "parzen":
+            self.knn(x_train, x_test, y_train, y_test, is_parzen=True)
+        if algorithm == "bayes":
+            self.bayes(x_train, x_test, y_train, y_test)
+        if algorithm == "mlp":
+            self.mlp(x_train, x_test, y_train, y_test)
+        if algorithm == "rbf":
+            self.rbf(x_train, x_test, y_train, y_test)
+        if algorithm == "svm":
+            self.svm(x_train, x_test, y_train, y_test)
+        if algorithm == "dtree":
+            self.decision_tree(x_train, x_test, y_train, y_test)
+        if algorithm == "rforest":
+            self.random_forest(x_train, x_test, y_train, y_test)
+
         print("\n----------------------------------------------------------")
         print("--------------------C-L-A-S-S-I-F-I-N-G-------------------")
         print("----------------------------------------------------------\n")
@@ -105,6 +125,34 @@ class Classifier:
         clf = SVC(gamma='auto')
         clf.fit(X_train, y_train)
 
+        y_pred = clf.predict(X_test)
+        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+        print("classification_report:\n\n", classification_report(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+        print("Accuracy:", accuracy_score(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+
+    def decision_tree(self, X_train, X_test, y_train, y_test):
+        clf = DecisionTreeClassifier(random_state=0)
+        clf = clf.fit(X_train, y_train)
+        y_pred = clf.predict(X_test)
+        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+        print("classification_report:\n\n", classification_report(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+        print("Accuracy:", accuracy_score(y_test, y_pred))
+        print("----------------------------------------------------------")
+        print("----------------------------------------------------------\n")
+
+    def random_forest(self, X_train, X_test, y_train, y_test):
+        clf = RandomForestClassifier(n_estimators=100, max_depth=20, random_state=0)
+        clf = clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
         print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
         print("----------------------------------------------------------")
