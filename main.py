@@ -8,6 +8,7 @@ from sklearn.model_selection import train_test_split
 from knn import knn
 from bayes import bayes
 from rbf import rbf
+from mlp import mlp
 
 
 def fe_resize_normalization(image_path, label, size):
@@ -71,4 +72,4 @@ def draw_image(filename):
 X, Y = build_data()
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.10)
-rbf(X_train, X_test, y_train, y_test)
+mlp(X_train, X_test, y_train, y_test)
