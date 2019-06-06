@@ -61,5 +61,4 @@ def draw_image(filename):
 X, Y = build_data()
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.20)
-# knn(X_train, X_test, y_train, y_test)
-
+# knn(X_train, X_test, y_train, y_test, True)

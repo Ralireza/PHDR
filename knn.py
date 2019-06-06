@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def knn(x_train, x_test, y_train, y_test):
+def knn(x_train, x_test, y_train, y_test, is_parzen=False):
     error = []
     best_k = dict()
 
@@ -17,7 +17,10 @@ def knn(x_train, x_test, y_train, y_test):
         best_k[i] = np.mean(pred_i != y_test)
 
     best_k = sorted(best_k.items(), key=lambda k: k[1])[0][0]
-    classifier = KNeighborsClassifier(n_neighbors=best_k, n_jobs=-1)
+    if is_parzen:
+        classifier = KNeighborsClassifier(n_neighbors=best_k, algorithm='ball_tree', n_jobs=-1)
+    else:
+        classifier = KNeighborsClassifier(n_neighbors=best_k, n_jobs=-1)
     classifier.fit(x_train, y_train)
     y_pred = classifier.predict(x_test)
     print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
