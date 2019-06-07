@@ -12,8 +12,13 @@ from sklearn.ensemble import RandomForestClassifier
 
 
 class Classifier:
-    def __init__(self, algorithm, x_train, x_test, y_train, y_test):
+    def __init__(self):
 
+        print("\n----------------------------------------------------------")
+        print("--------------------C-L-A-S-S-I-F-I-N-G-------------------")
+        print("----------------------------------------------------------\n")
+
+    def choose(self, algorithm, x_train, x_test, y_train, y_test):
         if algorithm == "knn":
             self.knn(x_train, x_test, y_train, y_test)
         if algorithm == "parzen":
@@ -30,10 +35,6 @@ class Classifier:
             self.decision_tree(x_train, x_test, y_train, y_test)
         if algorithm == "rforest":
             self.random_forest(x_train, x_test, y_train, y_test)
-
-        print("\n----------------------------------------------------------")
-        print("--------------------C-L-A-S-S-I-F-I-N-G-------------------")
-        print("----------------------------------------------------------\n")
 
     def knn(self, x_train, x_test, y_train, y_test, is_parzen=False):
         error = []
