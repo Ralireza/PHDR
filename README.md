@@ -1,13 +1,17 @@
 # PHDR
 Persian Handwriting Digit Recognition
 
-## Classifiers
-    - knn
-    - parzen-window
-    - bayes
-    - mlp
-    - rbf
-    - svm
-    - random forest
-    - decision tree
+## Classifier
+- knn
+- parzen-window
+- bayes
+- mlp
+- rbf
+- svm
+- random forest
+- decision tree
 
+## Feature Extractor
+- PCA
+- HOG
+- RESIZE
