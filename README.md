@@ -21,6 +21,16 @@
 - HOG
 - RESIZE
 
+## Report
+Algorithm | Feature-Extractror | Accuracy |
+--- | --- | --- 
+KNN | PCA | 0.9926
+KNN | HOG | 0.9889
+KNN | RESIZE | 0.9933
+parzen-window | PCA | 0.9926
+parzen-window | HOG | 0.9889
+parzen-window | RESIZE | 0.9933
+
 ## Usage
 ```
 python3 PHDR.py -c [classifier] -f [feature-selector]
@@ -35,3 +45,4 @@ python3 PHDR.py -c [classifier] -f [feature-selector]
                         pca hog resize
   -v, --version         show program's version number and exit
 ```
+
