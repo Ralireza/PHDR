@@ -27,9 +27,27 @@ Algorithm | Feature-Extractror | Accuracy |
 KNN | PCA | 0.9926
 KNN | HOG | 0.9889
 KNN | RESIZE | 0.9933
-parzen-window | PCA | 0.9926
-parzen-window | HOG | 0.9889
-parzen-window | RESIZE | 0.9933
+parzen-window | PCA | 0.9852
+parzen-window | HOG | 0.9927
+parzen-window | RESIZE | 1
+bayes | PCA | 0.9114
+bayes | HOG | 0.8923
+bayes | RESIZE | 0.9704
+mlp | PCA | 0.9926
+mlp | HOG | 0.9963
+mlp | RESIZE | 0.20
+rbf | PCA | 0.9926
+rbf | HOG | 0.9926
+rbf | RESIZE | 0.9852
+svm | PCA | 0.9926
+svm | HOG | 0.9852
+svm | RESIZE | 0.9926
+random forest | PCA | 0.9926
+random forest | HOG | 0.9963
+random forest | RESIZE | 0.9963
+decision tree | PCA | 0.9889
+decision tree | HOG | 1
+decision tree | RESIZE | 0.9926
 
 ## Usage
 ```
