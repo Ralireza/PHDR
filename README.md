@@ -22,7 +22,7 @@
 - RESIZE
 
 ## Report
-Algorithm | Feature-Extractror | Accuracy |
+Algorithm | Feature-Selector | Accuracy |
 --- | --- | --- 
 KNN | PCA | 0.9926
 KNN | HOG | 0.9889
