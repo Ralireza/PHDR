@@ -56,15 +56,7 @@ class Classifier:
         classifier.fit(x_train, y_train)
         y_pred = classifier.predict(x_test)
 
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
         plt.figure(figsize=(12, 6))
         plt.plot(range(1, 20), error, color='red', linestyle='dashed', marker='o',
@@ -83,78 +75,40 @@ class Classifier:
 
         # Predict the response for test dataset
         y_pred = gnb.predict(x_test)
-
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
     def mlp(self, X_train, X_test, y_train, y_test):
-        clf = MLPClassifier(hidden_layer_sizes=(10), max_iter=500)
+        clf = MLPClassifier(hidden_layer_sizes=(50), max_iter=10000)
         clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
     def rbf(self, X_train, X_test, y_train, y_test):
         clf = GaussianProcessClassifier(kernel=1.0 * RBF(length_scale=1.0), warm_start=True, n_jobs=-1)
         clf = clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
     def svm(self, X_train, X_test, y_train, y_test):
         clf = SVC(gamma='auto')
         clf.fit(X_train, y_train)
 
         y_pred = clf.predict(X_test)
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
     def decision_tree(self, X_train, X_test, y_train, y_test):
         clf = DecisionTreeClassifier(random_state=0)
         clf = clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
-        print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("classification_report:\n\n", classification_report(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
-        print("Accuracy:", accuracy_score(y_test, y_pred))
-        print("----------------------------------------------------------")
-        print("----------------------------------------------------------\n")
+        self.report(y_test, y_pred)
 
     def random_forest(self, X_train, X_test, y_train, y_test):
         clf = RandomForestClassifier(n_estimators=100, max_depth=20, random_state=0)
         clf = clf.fit(X_train, y_train)
         y_pred = clf.predict(X_test)
+        self.report(y_test, y_pred)
+
+    def report(self, y_test, y_pred):
         print("confusion_matrix:\n\n", confusion_matrix(y_test, y_pred))
         print("----------------------------------------------------------")
         print("----------------------------------------------------------\n")
@@ -164,3 +118,35 @@ class Classifier:
         print("Accuracy:", accuracy_score(y_test, y_pred))
         print("----------------------------------------------------------")
         print("----------------------------------------------------------\n")
+    # TODO ok this function
+    # https://blog.goodaudience.com/music-genre-classification-using-hidden-markov-models-4a7f14eb0fd4
+    def plot_confusion_matrix(cm, classes,
+                              normalize=False,
+                              title='Confusion matrix',
+                              cmap=plt.cm.Blues):
+
+        if normalize:
+            cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
+            print("Normalized confusion matrix")
+        else:
+            print('Confusion matrix, without normalization')
+
+        print(cm)
+
+        plt.imshow(cm, interpolation='nearest', cmap=cmap)
+        plt.title(title)
+        plt.colorbar()
+        tick_marks = np.arange(len(classes))
+        plt.xticks(tick_marks, classes, rotation=45)
+        plt.yticks(tick_marks, classes)
+
+        fmt = '.2f' if normalize else 'd'
+        thresh = cm.max() / 2.
+        for i, j in itertools.product(range(cm.shape[0]), range(cm.shape[1])):
+            plt.text(j, i, format(cm[i, j], fmt),
+                     horizontalalignment="center",
+                     color="white" if cm[i, j] > thresh else "black")
+
+        plt.tight_layout()
+        plt.ylabel('True label')
+        plt.xlabel('Predicted label')
